@@ -8,8 +8,10 @@ import WhyChooseUs from "@/components/sections/WhyChooseUs";
 import Hero from "@/components/hero/Hero";
 import Navbar from "@/components/navbar/Navbar";
 import Footer from "@/components/Footer";
+import WhatsAppButton from "@/components/WhatsAppButton";
 import RegistrationProvider from "@/components/registration/RegistrationProvider";
 import { getGalleryByGym, getGymWebsiteByDomain, getPricingByGym, getTermsByGym } from "@/lib/api";
+import { IMAGE_URL } from "@/lib/constants";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 
@@ -17,10 +19,21 @@ export async function generateMetadata({ params }) {
   const domain = Buffer.from(params.host, "base64url").toString("utf-8");
   const data = await getGymWebsiteByDomain(domain);
   if (!data) return {};
-  const name = data.navbar?.logoText || data.gym?.gymName || "Gym Website";
+
+  const name = data.meta?.title || data.navbar?.logoText || data.gym?.gymName || "Gym Website";
+  const description = data.meta?.description || `Welcome to ${name}`;
+  const ogImage = data.meta?.ogImage ? `${IMAGE_URL}/${data.meta.ogImage}` : null;
+  const favicon = data.meta?.favicon
+    ? `${IMAGE_URL}/${data.meta.favicon}`
+    : data.gym?.logo
+    ? `${IMAGE_URL}/${data.gym.logo}`
+    : null;
+
   return {
     title: name,
-    description: `Welcome to ${name}`,
+    description,
+    ...(ogImage && { openGraph: { images: [{ url: ogImage }] } }),
+    ...(favicon && { icons: { icon: favicon } }),
   };
 }
 
@@ -63,6 +76,7 @@ export default async function CustomDomainPage({ params }) {
             <Gallery galleryData={data.gallery} galleryItems={galleryItems} />
           )}
           <Footer gymData={data.gym} navbarData={data.navbar} socialMedia={data.socialMedia} />
+          <WhatsAppButton whatsapp={data.whatsapp} />
         </RegistrationProvider>
       </Suspense>
     </main>
