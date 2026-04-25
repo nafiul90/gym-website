@@ -3,8 +3,8 @@
 import { IMAGE_URL } from "@/lib/constants";
 import { motion } from "framer-motion";
 import Image from "next/image";
-import Link from "next/link";
 import { useRef, useState } from "react";
+import JoinButton from "@/components/registration/JoinButton";
 import "swiper/css";
 import "swiper/css/effect-fade";
 import "swiper/css/navigation";
@@ -179,10 +179,8 @@ export default function Hero({ heroData, gymData, socialMedia }) {
       title,
       description,
       ctaText: bannerCta,
-      ctaLink: bannerCtaLink,
     } = firstBanner;
     const finalCtaText = bannerCta || "Join Now";
-    const finalCtaLink = bannerCtaLink || "/#packages";
 
     return (
       <motion.section
@@ -230,13 +228,10 @@ export default function Hero({ heroData, gymData, socialMedia }) {
             )}
 
             <div className="flex justify-center pt-2">
-              <Link
-                href={finalCtaLink}
-                className="inline-flex items-center gap-1.5 capitalize text-xs sm:text-sm lg:text-base px-6 py-3 xs:px-7 xs:py-3.5 rounded-full bg-red-600 text-white border border-red-900 hover:bg-white hover:text-primary-dark-900 hover:border-transparent transition-colors duration-300 active:scale-[0.97]"
-              >
+              <JoinButton className="inline-flex items-center gap-1.5 capitalize text-xs sm:text-sm lg:text-base px-6 py-3 xs:px-7 xs:py-3.5 rounded-full bg-red-600 text-white border border-red-900 hover:bg-white hover:text-primary-dark-900 hover:border-transparent transition-colors duration-300 active:scale-[0.97]">
                 {finalCtaText}
                 <RightArrow className="size-4 sm:size-5" />
-              </Link>
+              </JoinButton>
             </div>
           </div>
         </div>
@@ -293,10 +288,8 @@ export default function Hero({ heroData, gymData, socialMedia }) {
             title,
             description,
             ctaText: bannerCta,
-            ctaLink: bannerCtaLink,
           } = banner;
           const finalCtaText = bannerCta || "Join Now";
-          const finalCtaLink = bannerCtaLink || "/#packages";
 
           return (
             <SwiperSlide
@@ -341,13 +334,10 @@ export default function Hero({ heroData, gymData, socialMedia }) {
                   )}
 
                   <div className="flex justify-center pt-2">
-                    <Link
-                      href={finalCtaLink}
-                      className="inline-flex items-center gap-1.5 capitalize text-xs sm:text-sm lg:text-base px-6 py-3 xs:px-7 xs:py-3.5 rounded-full bg-red-600 text-white border border-red-900 hover:bg-white hover:text-primary-dark-900 hover:border-transparent transition-colors duration-300 active:scale-[0.97]"
-                    >
+                    <JoinButton className="inline-flex items-center gap-1.5 capitalize text-xs sm:text-sm lg:text-base px-6 py-3 xs:px-7 xs:py-3.5 rounded-full bg-red-600 text-white border border-red-900 hover:bg-white hover:text-primary-dark-900 hover:border-transparent transition-colors duration-300 active:scale-[0.97]">
                       {finalCtaText}
                       <RightArrow className="size-4 sm:size-5" />
-                    </Link>
+                    </JoinButton>
                   </div>
                 </div>
               </div>

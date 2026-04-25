@@ -14,6 +14,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
+import JoinButton from "@/components/registration/JoinButton";
 
 // ─── Icons ────────────────────────────────────────────────────────────────────
 
@@ -145,7 +146,6 @@ export default function Navbar({ navbarData, gymData, navbarBg }) {
         logo: navbarLogo = "",
         links = [],
         ctaText = "Join Now",
-        ctaLink = "/#packages",
     } = navbarData ?? {};
 
     const gymLogo = gymData?.logo ?? "";
@@ -235,12 +235,9 @@ export default function Navbar({ navbarData, gymData, navbarBg }) {
                                         }}
                                         className="ml-2"
                                     >
-                                        <Link
-                                            href={ctaLink}
-                                            className="block px-5 py-2.5 rounded-full text-sm font-medium bg-red-600 text-white border border-red-900 hover:bg-white hover:text-primary-dark-900 hover:border-transparent transition-colors duration-300"
-                                        >
+                                        <JoinButton className="block px-5 py-2.5 rounded-full text-sm font-medium bg-red-600 text-white border border-red-900 hover:bg-white hover:text-primary-dark-900 hover:border-transparent transition-colors duration-300">
                                             {ctaText}
-                                        </Link>
+                                        </JoinButton>
                                     </motion.li>
                                 )}
                             </motion.ul>
@@ -326,13 +323,11 @@ export default function Navbar({ navbarData, gymData, navbarBg }) {
                                     ))}
                                     {ctaText && (
                                         <div className="mt-4">
-                                            <Link
-                                                href={ctaLink}
-                                                onClick={() => setSidebarOpen(false)}
-                                                className="block text-center px-5 py-2.5 rounded-full text-sm font-medium bg-red-600 text-white border border-red-900 hover:bg-white hover:text-primary-dark-900 transition-colors duration-300"
+                                            <JoinButton
+                                                className="block text-center w-full px-5 py-2.5 rounded-full text-sm font-medium bg-red-600 text-white border border-red-900 hover:bg-white hover:text-primary-dark-900 transition-colors duration-300"
                                             >
                                                 {ctaText}
-                                            </Link>
+                                            </JoinButton>
                                         </div>
                                     )}
                                 </motion.div>

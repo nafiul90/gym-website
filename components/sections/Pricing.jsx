@@ -1,9 +1,9 @@
 "use client";
 
 import { IMAGE_URL } from "@/lib/constants";
+import JoinButton from "@/components/registration/JoinButton";
 import { motion } from "framer-motion";
 import Image from "next/image";
-import Link from "next/link";
 
 // ─── Animation ────────────────────────────────────────────────────────────────
 
@@ -71,7 +71,7 @@ function CheckIcon({ className }) {
 
 // ─── Pricing Card ─────────────────────────────────────────────────────────────
 
-function PricingCard({ item, ctaText, ctaLink }) {
+function PricingCard({ item, ctaText }) {
   const { image, title, subTitle, extraInfo, priceDuration = [], benefits = [] } = item;
 
   return (
@@ -173,13 +173,10 @@ function PricingCard({ item, ctaText, ctaLink }) {
         </div>
 
         {/* CTA button */}
-        <Link
-          href={ctaLink}
-          className="inline-flex items-center gap-1.5 capitalize text-sm sm:text-base px-6 py-2.5 sm:px-7 sm:py-3 rounded-full bg-red-600 text-white border border-red-900 hover:bg-white hover:text-primary-dark-900 hover:border-transparent transition-colors duration-300 active:scale-[0.97]"
-        >
+        <JoinButton className="inline-flex items-center gap-1.5 capitalize text-sm sm:text-base px-6 py-2.5 sm:px-7 sm:py-3 rounded-full bg-red-600 text-white border border-red-900 hover:bg-white hover:text-primary-dark-900 hover:border-transparent transition-colors duration-300 active:scale-[0.97]">
           {ctaText}
           <RightArrow className="size-4 sm:size-5" />
-        </Link>
+        </JoinButton>
       </div>
     </div>
   );
@@ -188,7 +185,7 @@ function PricingCard({ item, ctaText, ctaLink }) {
 // ─── Section ──────────────────────────────────────────────────────────────────
 
 export default function Pricing({ pricingData, pricingItems = [] }) {
-  const { caption, title, ctaText = "Join Now", ctaLink = "/#contact" } = pricingData ?? {};
+  const { caption, title, ctaText = "Join Now" } = pricingData ?? {};
 
   if (!caption && !title && !pricingItems.length) return null;
 
@@ -234,7 +231,7 @@ export default function Pricing({ pricingData, pricingItems = [] }) {
             >
               {sorted.map((item, i) => (
                 <motion.div key={item._id ?? i} variants={itemVariants}>
-                  <PricingCard item={item} ctaText={ctaText} ctaLink={ctaLink} />
+                  <PricingCard item={item} ctaText={ctaText} />
                 </motion.div>
               ))}
             </motion.div>
