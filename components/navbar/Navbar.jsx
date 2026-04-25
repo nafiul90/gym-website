@@ -214,7 +214,7 @@ export default function Navbar({ navbarData, gymData, navbarBg }) {
                                     hidden: {},
                                     show: { transition: { staggerChildren: 0.06, delayChildren: 0.15 } },
                                 }}
-                                className="flex items-center gap-1"
+                                className="flex items-center gap-4"
                             >
                                 {links.map((link, i) => (
                                     <motion.li

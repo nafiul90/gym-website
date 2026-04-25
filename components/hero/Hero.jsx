@@ -110,7 +110,7 @@ function DownloadAppList({ androidUrl, iosUrl }) {
       <p className="text-xs text-primary-bright-100/70 whitespace-pre-line leading-tight">
         {"Bring our app\nto your fingertips"}
       </p>
-      <div className="flex flex-col gap-2">
+      <div className="flex gap-2">
         {androidUrl && (
           <a
             href={androidUrl}

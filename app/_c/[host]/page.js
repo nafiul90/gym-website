@@ -1,4 +1,5 @@
 import About from "@/components/sections/About";
+import Gallery from "@/components/sections/Gallery";
 import Instructors from "@/components/sections/Instructors";
 import Pricing from "@/components/sections/Pricing";
 import Services from "@/components/sections/Services";
@@ -6,8 +7,9 @@ import ThemeStyle from "@/components/ThemeStyle";
 import WhyChooseUs from "@/components/sections/WhyChooseUs";
 import Hero from "@/components/hero/Hero";
 import Navbar from "@/components/navbar/Navbar";
+import Footer from "@/components/Footer";
 import RegistrationProvider from "@/components/registration/RegistrationProvider";
-import { getGymWebsiteByDomain, getPricingByGym, getTermsByGym } from "@/lib/api";
+import { getGalleryByGym, getGymWebsiteByDomain, getPricingByGym, getTermsByGym } from "@/lib/api";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 
@@ -27,9 +29,10 @@ export default async function CustomDomainPage({ params }) {
   const data = await getGymWebsiteByDomain(domain);
   if (!data) notFound();
 
-  const [pricingItems, terms] = await Promise.all([
+  const [pricingItems, terms, galleryItems] = await Promise.all([
     data.gym?._id ? getPricingByGym(data.gym._id) : [],
     getTermsByGym(data.gym?._id),
+    getGalleryByGym(data.gym?._id),
   ]);
 
   return (
@@ -56,6 +59,10 @@ export default async function CustomDomainPage({ params }) {
           {data.pricing?.visible !== false && (
             <Pricing pricingData={data.pricing} pricingItems={pricingItems} />
           )}
+          {data.gallery?.visible !== false && (
+            <Gallery galleryData={data.gallery} galleryItems={galleryItems} />
+          )}
+          <Footer gymData={data.gym} navbarData={data.navbar} socialMedia={data.socialMedia} />
         </RegistrationProvider>
       </Suspense>
     </main>
