@@ -24,15 +24,21 @@ export default async function SlugPage({ params }) {
   return (
     <main>
       <Navbar navbarData={data.navbar} gymData={data.gym} />
-      <Hero
-        heroData={data.hero}
-        gymData={data.gym}
-        socialMedia={data.socialMedia}
-      />
-      <WhyChooseUs whyChooseUsData={data.whyChooseUs} />
-      <About aboutData={data.about} />
-      <Services servicesData={data.services} />
-      <Instructors instructorsData={data.instructors} />
+      {data.hero?.visible !== false && (
+        <Hero heroData={data.hero} gymData={data.gym} socialMedia={data.socialMedia} />
+      )}
+      {data.whyChooseUs?.visible !== false && (
+        <WhyChooseUs whyChooseUsData={data.whyChooseUs} />
+      )}
+      {data.about?.visible !== false && (
+        <About aboutData={data.about} />
+      )}
+      {data.services?.visible !== false && (
+        <Services servicesData={data.services} />
+      )}
+      {data.instructors?.visible !== false && (
+        <Instructors instructorsData={data.instructors} />
+      )}
     </main>
   );
 }

@@ -153,7 +153,7 @@ function DownloadAppList({ androidUrl, iosUrl }) {
 // ─── Hero ─────────────────────────────────────────────────────────────────────
 
 export default function Hero({ heroData, gymData, socialMedia }) {
-  const { banners = [] } = heroData ?? {};
+  const { banners = [], videoMode = false, video = "" } = heroData ?? {};
   const androidUrl = gymData?.androidUrl ?? "";
   const iosUrl = gymData?.iosUrl ?? "";
 
@@ -164,10 +164,105 @@ export default function Hero({ heroData, gymData, socialMedia }) {
     swiperRef.current?.swiper?.slideToLoop(index);
   };
 
-  if (!banners.length) return null;
+  if (!banners.length && !(videoMode && video)) return null;
 
   const hasSocial = (socialMedia ?? []).some((s) => s.link);
   const hasApps = androidUrl || iosUrl;
+
+  // ─── Video mode ───────────────────────────────────────────────────────────
+
+  if (videoMode && video) {
+    const firstBanner = banners[0] ?? {};
+    const {
+      image: posterImage,
+      caption,
+      title,
+      description,
+      ctaText: bannerCta,
+      ctaLink: bannerCtaLink,
+    } = firstBanner;
+    const finalCtaText = bannerCta || "Join Now";
+    const finalCtaLink = bannerCtaLink || "/#packages";
+
+    return (
+      <motion.section
+        aria-label="hero section"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.6 }}
+        className="h-[calc(100dvh)] relative overflow-hidden bg-primary-dark-900"
+      >
+        {/* Video background */}
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="auto"
+          poster={posterImage ? `${IMAGE_URL}/${posterImage}` : undefined}
+          className="absolute inset-0 w-full h-full object-cover"
+        >
+          <source src={`${IMAGE_URL}/${video}`} type="video/mp4" />
+        </video>
+
+        {/* Dark overlay */}
+        <div className="absolute inset-0 bg-primary-dark-900/60" />
+
+        {/* Centre content */}
+        <div className="relative h-full flex justify-center items-center">
+          <div className="container space-y-4 text-center">
+            {caption && (
+              <p className="uppercase tracking-[0.4em] text-xl 2xs:text-2xl sm:text-3xl lg:text-4xl font-teko text-primary-bright-100">
+                {caption}
+              </p>
+            )}
+
+            {title && (
+              <h1 className="font-teko text-5xl 2xs:text-6xl sm:text-7xl lg:text-8xl text-primary-bright-100 leading-none">
+                {title}
+              </h1>
+            )}
+
+            {description && (
+              <p className="max-w-[800px] mx-auto text-primary-bright-100/70 text-sm 2xs:text-base md:text-lg">
+                {description}
+              </p>
+            )}
+
+            <div className="flex justify-center pt-2">
+              <Link
+                href={finalCtaLink}
+                className="inline-flex items-center gap-1.5 capitalize text-xs sm:text-sm lg:text-base px-6 py-3 xs:px-7 xs:py-3.5 rounded-full bg-red-600 text-white border border-red-900 hover:bg-white hover:text-primary-dark-900 hover:border-transparent transition-colors duration-300 active:scale-[0.97]"
+              >
+                {finalCtaText}
+                <RightArrow className="size-4 sm:size-5" />
+              </Link>
+            </div>
+          </div>
+        </div>
+
+        {/* Social media + app downloads — bottom-left on desktop */}
+        {(hasSocial || hasApps) && (
+          <div className="hidden md:block absolute z-10 md:bottom-10 md:left-10 lg:bottom-14 lg:left-14">
+            <div className="flex items-end gap-4">
+              {hasSocial && (
+                <nav aria-label="social media links">
+                  <SocialNavList socialMedia={socialMedia} />
+                </nav>
+              )}
+              {hasApps && (
+                <DownloadAppList androidUrl={androidUrl} iosUrl={iosUrl} />
+              )}
+            </div>
+          </div>
+        )}
+      </motion.section>
+    );
+  }
+
+  // ─── Swiper banner mode ───────────────────────────────────────────────────
+
+  if (!banners.length) return null;
 
   return (
     <motion.section
