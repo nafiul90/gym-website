@@ -1,3 +1,7 @@
+import About from "@/components/sections/About";
+import Instructors from "@/components/sections/Instructors";
+import Services from "@/components/sections/Services";
+import WhyChooseUs from "@/components/sections/WhyChooseUs";
 import Hero from "@/components/hero/Hero";
 import Navbar from "@/components/navbar/Navbar";
 import { getGymWebsiteByDomain } from "@/lib/api";
@@ -27,6 +31,10 @@ export default async function CustomDomainPage({ params }) {
         gymData={data.gym}
         socialMedia={data.socialMedia}
       />
+      <WhyChooseUs whyChooseUsData={data.whyChooseUs} />
+      <About aboutData={data.about} />
+      <Services servicesData={data.services} />
+      <Instructors instructorsData={data.instructors} />
     </main>
   );
 }
