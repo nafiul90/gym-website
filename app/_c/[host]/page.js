@@ -48,34 +48,44 @@ export default async function CustomDomainPage({ params }) {
     getGalleryByGym(data.gym?._id),
   ]);
 
+  const showHero = data.hero?.visible !== false;
+
   return (
     <main>
       <ThemeStyle theme={data.theme} />
       <Suspense>
         <RegistrationProvider gymData={data.gym} termsContent={terms?.content ?? null}>
           <Navbar navbarData={data.navbar} gymData={data.gym} navbarBg={data.theme?.navbarBg} />
-          {data.hero?.visible !== false && (
+
+          {showHero && (
             <Hero heroData={data.hero} gymData={data.gym} socialMedia={data.socialMedia} />
           )}
-          {data.whyChooseUs?.visible !== false && (
-            <WhyChooseUs whyChooseUsData={data.whyChooseUs} />
-          )}
-          {data.about?.visible !== false && (
-            <About aboutData={data.about} />
-          )}
-          {data.services?.visible !== false && (
-            <Services servicesData={data.services} />
-          )}
-          {data.instructors?.visible !== false && (
-            <Instructors instructorsData={data.instructors} />
-          )}
-          {data.pricing?.visible !== false && (
-            <Pricing pricingData={data.pricing} pricingItems={pricingItems} />
-          )}
-          {data.gallery?.visible !== false && (
-            <Gallery galleryData={data.gallery} galleryItems={galleryItems} />
-          )}
-          <Footer gymData={data.gym} navbarData={data.navbar} socialMedia={data.socialMedia} />
+
+          {/* Scrolling content card — slides over the sticky hero */}
+          <div className={showHero ? "relative z-10 shadow-[0_-12px_40px_rgba(0,0,0,0.7)]" : ""}>
+            <div className={showHero ? "bg-primary-dark-900 rounded-t-[2rem] overflow-hidden" : ""}>
+              {data.whyChooseUs?.visible !== false && (
+                <WhyChooseUs whyChooseUsData={data.whyChooseUs} />
+              )}
+              {data.about?.visible !== false && (
+                <About aboutData={data.about} />
+              )}
+              {data.services?.visible !== false && (
+                <Services servicesData={data.services} />
+              )}
+              {data.instructors?.visible !== false && (
+                <Instructors instructorsData={data.instructors} />
+              )}
+              {data.pricing?.visible !== false && (
+                <Pricing pricingData={data.pricing} pricingItems={pricingItems} />
+              )}
+              {data.gallery?.visible !== false && (
+                <Gallery galleryData={data.gallery} galleryItems={galleryItems} />
+              )}
+              <Footer gymData={data.gym} navbarData={data.navbar} socialMedia={data.socialMedia} />
+            </div>
+          </div>
+
           <WhatsAppButton whatsapp={data.whatsapp} />
         </RegistrationProvider>
       </Suspense>

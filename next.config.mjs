@@ -9,6 +9,12 @@ const nextConfig = {
                 pathname: "/**",
             },
             {
+                protocol: "http",
+                hostname: "192.168.0.103",
+                port: "3051",
+                pathname: "/**",
+            },
+            {
                 protocol: "https",
                 hostname: "api.gymassistant.xyz",
                 pathname: "/**",

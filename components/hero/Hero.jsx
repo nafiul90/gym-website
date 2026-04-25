@@ -188,7 +188,7 @@ export default function Hero({ heroData, gymData, socialMedia }) {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.6 }}
-        className="h-[calc(100dvh)] relative overflow-hidden bg-primary-dark-900"
+        className="h-[calc(100dvh)] sticky top-0 z-0 relative overflow-hidden bg-primary-dark-900"
       >
         {/* Video background */}
         <video
@@ -265,8 +265,8 @@ export default function Hero({ heroData, gymData, socialMedia }) {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.6 }}
-      // navbar is fixed (80px) — hero fills remaining viewport
-      className="h-[calc(100dvh)] relative overflow-hidden bg-primary-dark-900"
+      // navbar is fixed (80px) — hero fills remaining viewport; sticky keeps it behind scrolling content
+      className="h-[calc(100dvh)] sticky top-0 z-0 relative overflow-hidden bg-primary-dark-900"
     >
       <Swiper
         ref={swiperRef}

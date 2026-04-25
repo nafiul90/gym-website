@@ -3,46 +3,47 @@ import { NextResponse } from "next/server";
 const URELAA_DOMAIN = "urelaa.com";
 
 export function middleware(request) {
-    const url = request.nextUrl.clone();
-    const hostname = request.headers.get("host") || "";
+  const url = request.nextUrl.clone();
+  const hostname = request.headers.get("host") || "";
 
-    // Strip port for matching
-    const host = hostname.split(":")[0];
+  // Strip port for matching
+  const host = hostname.split(":")[0];
 
-    // Already on a slug or custom-domain internal route — let it through
-    if (
-        url.pathname.startsWith("/_c/") ||
-        url.pathname.startsWith("/_next/") ||
-        url.pathname.startsWith("/api/")
-    ) {
-        return NextResponse.next();
-    }
+  // Already on a slug or custom-domain internal route — let it through
+  if (
+    url.pathname.startsWith("/_c/") ||
+    url.pathname.startsWith("/_next/") ||
+    url.pathname.startsWith("/api/")
+  ) {
+    return NextResponse.next();
+  }
 
-    // localhost / bare urelaa.com — no rewrite needed; [slug] routing handles it
-    if (
-        host === "localhost" ||
-        host === URELAA_DOMAIN ||
-        host === `www.${URELAA_DOMAIN}`
-    ) {
-        return NextResponse.next();
-    }
+  // localhost / bare urelaa.com — no rewrite needed; [slug] routing handles it
+  if (
+    host === "localhost" ||
+    host === "192.168.0.103" ||
+    host === URELAA_DOMAIN ||
+    host === `www.${URELAA_DOMAIN}`
+  ) {
+    return NextResponse.next();
+  }
 
-    // Subdomain: slug.urelaa.com → rewrite to /slug (preserving the path)
-    if (host.endsWith(`.${URELAA_DOMAIN}`)) {
-        const slug = host.replace(`.${URELAA_DOMAIN}`, "");
-        url.pathname = `/${slug}${url.pathname === "/" ? "" : url.pathname}`;
-        return NextResponse.rewrite(url);
-    }
-
-    // Custom domain — encode hostname in base64 and proxy to /_c/[host]
-    const encoded = Buffer.from(host).toString("base64url");
-    url.pathname = `/_c/${encoded}${url.pathname === "/" ? "" : url.pathname}`;
+  // Subdomain: slug.urelaa.com → rewrite to /slug (preserving the path)
+  if (host.endsWith(`.${URELAA_DOMAIN}`)) {
+    const slug = host.replace(`.${URELAA_DOMAIN}`, "");
+    url.pathname = `/${slug}${url.pathname === "/" ? "" : url.pathname}`;
     return NextResponse.rewrite(url);
+  }
+
+  // Custom domain — encode hostname in base64 and proxy to /_c/[host]
+  const encoded = Buffer.from(host).toString("base64url");
+  url.pathname = `/_c/${encoded}${url.pathname === "/" ? "" : url.pathname}`;
+  return NextResponse.rewrite(url);
 }
 
 export const config = {
-    matcher: [
-        // Run on all paths except static files and Next internals
-        "/((?!_next/static|_next/image|favicon.ico).*)",
-    ],
+  matcher: [
+    // Run on all paths except static files and Next internals
+    "/((?!_next/static|_next/image|favicon.ico).*)",
+  ],
 };
