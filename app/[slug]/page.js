@@ -6,9 +6,10 @@ import { notFound } from "next/navigation";
 export async function generateMetadata({ params }) {
   const data = await getGymWebsiteBySlug(params.slug);
   if (!data) return {};
+  const name = data.navbar?.logoText || data.gym?.gymName || "Gym Website";
   return {
-    title: data.navbar?.logoText || "Gym Website",
-    description: `Welcome to ${data.navbar?.logoText || "our gym"}`,
+    title: name,
+    description: `Welcome to ${name}`,
   };
 }
 
@@ -18,8 +19,12 @@ export default async function SlugPage({ params }) {
 
   return (
     <main>
-      <Navbar data={data.navbar} />
-      <Hero data={{ banners: data.hero?.banners ?? [] }} />
+      <Navbar navbarData={data.navbar} gymData={data.gym} />
+      <Hero
+        heroData={data.hero}
+        gymData={data.gym}
+        socialMedia={data.socialMedia}
+      />
     </main>
   );
 }
