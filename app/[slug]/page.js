@@ -1,10 +1,11 @@
 import About from "@/components/sections/About";
 import Instructors from "@/components/sections/Instructors";
+import Pricing from "@/components/sections/Pricing";
 import Services from "@/components/sections/Services";
 import WhyChooseUs from "@/components/sections/WhyChooseUs";
 import Hero from "@/components/hero/Hero";
 import Navbar from "@/components/navbar/Navbar";
-import { getGymWebsiteBySlug } from "@/lib/api";
+import { getGymWebsiteBySlug, getPricingByGym } from "@/lib/api";
 import { notFound } from "next/navigation";
 
 export async function generateMetadata({ params }) {
@@ -20,6 +21,8 @@ export async function generateMetadata({ params }) {
 export default async function SlugPage({ params }) {
   const data = await getGymWebsiteBySlug(params.slug);
   if (!data) notFound();
+
+  const pricingItems = data.gym?._id ? await getPricingByGym(data.gym._id) : [];
 
   return (
     <main>
@@ -38,6 +41,9 @@ export default async function SlugPage({ params }) {
       )}
       {data.instructors?.visible !== false && (
         <Instructors instructorsData={data.instructors} />
+      )}
+      {data.pricing?.visible !== false && (
+        <Pricing pricingData={data.pricing} pricingItems={pricingItems} />
       )}
     </main>
   );
