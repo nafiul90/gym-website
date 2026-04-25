@@ -2,6 +2,7 @@ import About from "@/components/sections/About";
 import Instructors from "@/components/sections/Instructors";
 import Pricing from "@/components/sections/Pricing";
 import Services from "@/components/sections/Services";
+import ThemeStyle from "@/components/ThemeStyle";
 import WhyChooseUs from "@/components/sections/WhyChooseUs";
 import Hero from "@/components/hero/Hero";
 import Navbar from "@/components/navbar/Navbar";
@@ -26,7 +27,8 @@ export default async function SlugPage({ params }) {
 
   return (
     <main>
-      <Navbar navbarData={data.navbar} gymData={data.gym} />
+      <ThemeStyle theme={data.theme} />
+      <Navbar navbarData={data.navbar} gymData={data.gym} navbarBg={data.theme?.navbarBg} />
       {data.hero?.visible !== false && (
         <Hero heroData={data.hero} gymData={data.gym} socialMedia={data.socialMedia} />
       )}
