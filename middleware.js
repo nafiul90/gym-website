@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 
-const URELAA_DOMAIN = "urelaa.com";
+const URELAA_DOMAIN = "gyminfo.xyz";
 
 export function middleware(request) {
   const url = request.nextUrl.clone();
