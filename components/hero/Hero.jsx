@@ -136,7 +136,7 @@ function DownloadAppList({ androidUrl, iosUrl }) {
             className="block h-7 lg:h-8 aspect-[3/1] relative"
           >
             <Image
-              src="/logos-icons/download-on-the-app-store-badge.svg"
+              src="/logos-icons/apple-app-download.png"
               alt="Download on the App Store"
               fill
               sizes="100px"

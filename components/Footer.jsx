@@ -17,7 +17,7 @@ const SOCIAL_ICONS = {
 
 const APP_BADGES = {
   android: "/logos-icons/get-it-on-google-play-badge.png",
-  ios: "/logos-icons/download-on-the-app-store-badge.svg",
+  ios: "/logos-icons/apple-app-download.png",
 };
 
 // ─── Sub-components ───────────────────────────────────────────────────────────
@@ -65,7 +65,13 @@ function SocialLinks({ socialMedia }) {
             aria-label={`${item.type} link`}
             className="relative size-5 opacity-60 hover:opacity-100 transition-opacity duration-200"
           >
-            <Image src={icon} alt={item.type} fill sizes="20px" className="object-contain invert" />
+            <Image
+              src={icon}
+              alt={item.type}
+              fill
+              sizes="20px"
+              className="object-contain invert"
+            />
           </a>
         );
       })}
@@ -78,16 +84,38 @@ function AppLinks({ androidUrl, iosUrl }) {
   return (
     <div className="flex items-center gap-3 flex-wrap">
       {androidUrl && (
-        <a href={androidUrl} target="_blank" rel="noopener noreferrer" aria-label="Download on Google Play">
+        <a
+          href={androidUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Download on Google Play"
+        >
           <div className="relative h-8 w-24">
-            <Image src={APP_BADGES.android} alt="Google Play" fill sizes="96px" className="object-contain object-left" />
+            <Image
+              src={APP_BADGES.android}
+              alt="Google Play"
+              fill
+              sizes="96px"
+              className="object-contain object-left"
+            />
           </div>
         </a>
       )}
       {iosUrl && (
-        <a href={iosUrl} target="_blank" rel="noopener noreferrer" aria-label="Download on App Store">
+        <a
+          href={iosUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Download on App Store"
+        >
           <div className="relative h-8 w-24">
-            <Image src={APP_BADGES.ios} alt="App Store" fill sizes="96px" className="object-contain object-left" />
+            <Image
+              src={APP_BADGES.ios}
+              alt="App Store"
+              fill
+              sizes="96px"
+              className="object-contain object-left"
+            />
           </div>
         </a>
       )}
@@ -119,7 +147,6 @@ export default function Footer({ gymData, navbarData, socialMedia }) {
     >
       <div className="container py-12 lg:py-16">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
-
           {/* ── Brand column ── */}
           <div className="flex flex-col gap-4 lg:col-span-1">
             <FooterLogo logo={logo} gymName={gymName} />
@@ -180,7 +207,9 @@ export default function Footer({ gymData, navbarData, socialMedia }) {
                 {addressLine && (
                   <li className="flex items-start gap-2.5">
                     <MapPinIcon className="size-4 flex-none mt-0.5 text-red-600" />
-                    <span className="text-sm text-primary-bright-100/70">{addressLine}</span>
+                    <span className="text-sm text-primary-bright-100/70">
+                      {addressLine}
+                    </span>
                   </li>
                 )}
               </ul>
@@ -195,16 +224,38 @@ export default function Footer({ gymData, navbarData, socialMedia }) {
               </h4>
               <div className="flex flex-col gap-3">
                 {androidUrl && (
-                  <a href={androidUrl} target="_blank" rel="noopener noreferrer" aria-label="Download on Google Play">
+                  <a
+                    href={androidUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Download on Google Play"
+                  >
                     <div className="relative h-10 w-32">
-                      <Image src={APP_BADGES.android} alt="Google Play" fill sizes="128px" className="object-contain object-left" />
+                      <Image
+                        src={APP_BADGES.android}
+                        alt="Google Play"
+                        fill
+                        sizes="128px"
+                        className="object-contain object-left"
+                      />
                     </div>
                   </a>
                 )}
                 {iosUrl && (
-                  <a href={iosUrl} target="_blank" rel="noopener noreferrer" aria-label="Download on App Store">
+                  <a
+                    href={iosUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Download on App Store"
+                  >
                     <div className="relative h-10 w-32">
-                      <Image src={APP_BADGES.ios} alt="App Store" fill sizes="128px" className="object-contain object-left" />
+                      <Image
+                        src={APP_BADGES.ios}
+                        alt="App Store"
+                        fill
+                        sizes="128px"
+                        className="object-contain object-left"
+                      />
                     </div>
                   </a>
                 )}
@@ -219,7 +270,8 @@ export default function Footer({ gymData, navbarData, socialMedia }) {
             &copy; {year} {gymName ?? ""}. All rights reserved.
           </p>
           <p className="text-xs text-primary-bright-100/20 text-center">
-            Powered by <span className="text-primary-bright-100/40">Gym Assistant</span>
+            Powered by{" "}
+            <span className="text-primary-bright-100/40">Gym Assistant</span>
           </p>
         </div>
       </div>
@@ -231,7 +283,15 @@ export default function Footer({ gymData, navbarData, socialMedia }) {
 
 function PhoneIcon({ className }) {
   return (
-    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <svg
+      className={className}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
       <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.35 2 2 0 0 1 3.6 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.56a16 16 0 0 0 6.29 6.29l.96-.96a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z" />
     </svg>
   );
@@ -239,7 +299,15 @@ function PhoneIcon({ className }) {
 
 function MailIcon({ className }) {
   return (
-    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <svg
+      className={className}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
       <rect x="2" y="4" width="20" height="16" rx="2" />
       <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
     </svg>
@@ -248,7 +316,15 @@ function MailIcon({ className }) {
 
 function MapPinIcon({ className }) {
   return (
-    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <svg
+      className={className}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
       <path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 0 1 16 0z" />
       <circle cx="12" cy="10" r="3" />
     </svg>
