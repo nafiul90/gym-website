@@ -11,7 +11,7 @@ export function middleware(request) {
 
   // Already on a slug or custom-domain internal route — let it through
   if (
-    url.pathname.startsWith("/_c/") ||
+    url.pathname.startsWith("/c-domain/") ||
     url.pathname.startsWith("/_next/") ||
     url.pathname.startsWith("/api/")
   ) {
@@ -35,9 +35,11 @@ export function middleware(request) {
     return NextResponse.rewrite(url);
   }
 
-  // Custom domain — encode hostname in base64 and proxy to /_c/[host]
+  // Custom domain — encode hostname in base64url and proxy to /c-domain/[host].
+  // NOTE: this path must NOT start with "_" — App Router treats `_folder` as a
+  // private (non-routable) folder, which is why an earlier `/_c/` route 404'd.
   const encoded = Buffer.from(host).toString("base64url");
-  url.pathname = `/_c/${encoded}${url.pathname === "/" ? "" : url.pathname}`;
+  url.pathname = `/c-domain/${encoded}${url.pathname === "/" ? "" : url.pathname}`;
   return NextResponse.rewrite(url);
 }
 
