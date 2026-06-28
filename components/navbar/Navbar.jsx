@@ -201,7 +201,7 @@ export default function Navbar({ navbarData, gymData, navbarBg }) {
                         <Logo
                             gymLogo={gymLogo}
                             gymName={gymName}
-                            navbarLogo={navbarLogo}
+                            navbarLogo={gymLogo}
                             navbarLogoText={navbarLogoText}
                         />
 
